@@ -1,0 +1,94 @@
+body{
+	
+}
+
+#header{
+	
+}
+
+#content{
+	margin: 10px 30px;
+	min-height: 500px;
+}
+
+#viewer{
+	background-color: #CCCCCC;
+	border: 1px solid #000;	
+	width: 100%;	
+	height: 100%;
+	overflow: hidden;
+}
+
+#footer{
+	position: absolute;
+	bottom: 0;	
+}
+
+.w3-theme {
+	color: #fff !important;
+	background-color: #08B2E3 !important
+}
+
+.w3-theme-light {
+	color: #484D6D !important;
+	background-color: #EFE9F4 !important
+}
+
+.w3-theme-dark {
+	color: #EFE9F4 !important;
+	background-color: #484D6D !important
+}
+
+.w3-theme-l5 {
+	color: #484D6D !important;
+	background-color: #EFE9F4 !important
+}
+
+.w3-theme-l4 {
+	color: #484D6D !important;
+	background-color: #EEBCBE !important
+}
+
+.w3-theme-l3 {
+	color: #EFE9F4 !important;
+	background-color: #EE8F88 !important
+}
+
+.w3-theme-l2 {
+	color: #EFE9F4 !important;
+	background-color: #EE6352 !important
+}
+
+.w3-theme-l1 {
+	color: #EFE9F4 !important;
+	background-color: #837270 !important
+}
+
+.w3-theme-d1 {
+	color: #EFE9F4 !important;
+	background-color: #19828E !important
+}
+
+.w3-theme-d2 {
+	color: #EFE9F4 !important;
+	background-color: #57A773 !important
+}
+
+.w3-theme-d3 {
+	color: #EFE9F4 !important;
+	background-color: #2B5339 !important
+}
+
+.w3-theme-d4 {
+	color: #EFE9F4 !important;
+	background-color: #484D6D !important
+}
+
+.w3-theme-action {
+	color: #EFE9F4 !important;
+	background-color: #484D6D !important
+}
+
+.w3-text-theme {
+	color: #484D6D !important
+}

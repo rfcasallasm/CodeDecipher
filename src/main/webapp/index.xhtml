@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"   
+   xmlns:sdstrp="http://java.sun.com/jsf/composite/composite"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="head">
+		<h:outputStylesheet>
+			@media (min-width: 48em) {
+				#header{
+					position: fixed;
+					top: 0;
+					bottom: 0;
+					width: 300px;
+					margin: auto;
+				}
+				#content{
+					margin-left:310px;
+				}
+			}
+		</h:outputStylesheet>
+   </ui:define>
+	<ui:define name="content">		
+		<h1>Listado de proyectos</h1>
+		<p>El siguiente es un listado de proyectos de ejemplo utilizando esta tecnica de visualización</p>
+		<ui:repeat var="project" value="#{projectCtrl.projects}">
+			<h:panelGroup styleClass="w3-half" layout="block">
+				<h:panelGroup styleClass="w3-margin w3-card-4" layout="block">	
+					<h:panelGroup styleClass="w3-container w3-padding w3-theme-d1" layout="block">
+						<h1>#{project.name}</h1>
+					</h:panelGroup>
+					<ul class="w3-ul">
+						<li class="w3-bar">							
+							<div class="w3-bar-item">
+						        <span class="w3-large">Descripción</span><br/>
+						        <span class="w3-small">#{project.description}</span>
+							</div>	
+						</li>
+						<li class="w3-bar">
+							<div class="w3-bar-item w3-circle w3-padding">
+								<i class="fab fa-github fa-3x"></i>
+							</div>
+							<div class="w3-bar-item">
+						        <span class="w3-large">URL</span><br/>
+						        <span class="w3-small">#{project.url}</span>
+							</div>	
+						</li>												
+						<li class="w3-bar">
+							<div class="w3-bar-item w3-circle w3-padding">
+								<i class="fas fa-upload fa-3x"></i>
+							</div>						
+							<div class="w3-bar-item">
+						        <span class="w3-large">Autor</span><br/>
+						        <span class="w3-small">#{project.uploader}</span>
+							</div>	
+						</li>
+					</ul>	
+					<h:panelGroup styleClass="w3-container w3-padding " layout="block">						
+						<h:button outcome="/project/View.xhtml" value="Consultar" styleClass="w3-button w3-theme-action w3-right">
+							<f:param name="name" value="#{project.name}"/>
+							<f:param name="faces-redirect" value="true"/>								
+						</h:button>
+					</h:panelGroup>
+				</h:panelGroup>	
+			</h:panelGroup>
+		</ui:repeat>			
+	</ui:define>
+</ui:composition>

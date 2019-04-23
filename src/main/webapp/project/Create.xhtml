@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"   
+   xmlns:sdstrp="http://java.sun.com/jsf/composite/composite"
+   template="/WEB-INF/templates/default.xhtml">
+   
+   <ui:define name="content">	
+   	<h1>Nuevo proyecto</h1>
+	<h:form id="project" styleClass="w3-container w3-half">
+		<p>
+			<h:outputLabel value="Nombre (*)" for="name" />
+		  	<h:inputText id="name" required="true" value="#{projectCtrl.project.name}" styleClass="w3-input"/>
+		  	<h:message for="name"/>
+		</p>
+		<p>
+			<h:outputLabel value="URL (*)" for="url" />
+		  	<h:inputText id="url" required="true" value="#{projectCtrl.project.url}" styleClass="w3-input"/>		  			  
+		  	<h:message for="url"/>
+		  	<h:outputScript>
+		  		document.getElementById("project:url").setAttribute("type", "url");
+		  	</h:outputScript>
+		</p>
+		<p>
+			<h:outputLabel value="Descripción" for="description" />					  
+		  	<h:inputTextarea id="description" value="#{projectCtrl.project.description}" styleClass="w3-input" />
+		  	<h:message for="description"/>
+		</p>
+		<p>
+			<h:outputLabel value="Autor (*)" for="uploader" />
+		  	<h:inputText id="uploader" required="true" value="#{projectCtrl.project.uploader}" styleClass="w3-input"/>
+		  	<h:message for="uploader"/>
+		</p>
+		<p>
+			<h:commandButton action="#{projectCtrl.createProject()}" value="Crear" styleClass="w3-button w3-theme-action" />
+		</p>
+	</h:form>
+   </ui:define>
+</ui:composition>   

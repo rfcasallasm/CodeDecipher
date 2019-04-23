@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"   
+   xmlns:sdstrp="http://java.sun.com/jsf/composite/composite"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="head">
+		<script src="https://unpkg.com/3d-force-graph"></script>
+		<script src="https://cdn.jsdelivr.net/npm/neo4j-driver@1.7.1/lib/browser/neo4j-web.min.js"></script>
+		<h:outputScript>
+			var driver = neo4j.v1.driver("bolt://"+window.location.hostname+":"+#{projectCtrl.project.port}, neo4j.v1.auth.basic("neo4j", "neo4j"));
+			var session = driver.session();
+			session
+		      .run(
+		      	'MATCH (n)-[r]->(m) RETURN { id: n.qualifiedName, label:head(labels(n)), caption:n.name } as source, { id: m.qualifiedName, label:head(labels(m)), caption:m.name } as target, {type:type(r)} as rel'
+		      )
+		      .then(function (result) {
+		        const nodes = {}
+		        const links = result.records.map(r => { 
+			       var source = r.get('source');source.id = source.id;
+		           nodes[source.id] = source;
+			       var target = r.get('target');target.id = target.id;
+		           nodes[target.id] = target;
+			       return Object.assign({source:source.id,target:target.id}, r.get('rel'));
+			    });
+		        		         
+		        session.close();
+		        const ids = new Set()
+		        links.forEach(l => {ids.add(l.source);ids.add(l.target);});
+		        const gData = { nodes: Object.values(nodes), links: links};
+		        var viewer = document.getElementById('viewer');
+		        const Graph = ForceGraph3D()(viewer)
+		        				.graphData(gData)
+		        				.nodeId('id')
+                      			.nodeLabel(node => `${node.label}: ${node.caption}`)
+                      			.nodeAutoColorBy('label')	
+                      			.linkAutoColorBy( 'type' )
+                      			.linkWidth(4)
+                      			.linkDirectionalParticles(4)
+                      			.linkDirectionalParticleWidth(4)
+                      			.onNodeHover(node => viewer.style.cursor = node ? 'pointer' : null);
+		      })
+		      .catch(function (error) {
+		        console.log(error);
+		      });		
+		      	
+		</h:outputScript>
+	</ui:define>
+   	<ui:define name="content">	
+   		<h1>#{projectCtrl.project.name}</h1>
+		<h:panelGroup id="viewer" layout="block"></h:panelGroup>	
+	</ui:define>
+</ui:composition>   
