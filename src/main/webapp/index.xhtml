@@ -15,14 +15,20 @@
 					width: 300px;
 					margin: auto;
 				}
+				#header h1.w3-bar-item{
+					margin: 50% auto;
+				}
+				#header h2.w3-bar-item{
+					margin: 5% auto;
+				}
 				#content{
-					margin-left:310px;
+					margin-left:305px;
 				}
 			}
 		</h:outputStylesheet>
    </ui:define>
-	<ui:define name="content">		
-		<h1>Listado de proyectos</h1>
+   	<ui:define name="title">Listado de proyectos</ui:define>
+	<ui:define name="content">				
 		<p>El siguiente es un listado de proyectos de ejemplo utilizando esta tecnica de visualización</p>
 		<ui:repeat var="project" value="#{projectCtrl.projects}">
 			<h:panelGroup styleClass="w3-half" layout="block">

@@ -18,11 +18,21 @@
 		      .then(function (result) {
 		        const nodes = {}
 		        const links = result.records.map(r => { 
-			       var source = r.get('source');source.id = source.id;
+			       var source = r.get('source');
+			       source.id = source.id;
 		           nodes[source.id] = source;
-			       var target = r.get('target');target.id = target.id;
+			       var target = r.get('target');
+			       target.id = target.id;
 		           nodes[target.id] = target;
-			       return Object.assign({source:source.id,target:target.id}, r.get('rel'));
+			       return Object.assign(
+			       	{
+			       		source:source.id,
+			       		source_type: source.label,
+			       		target:target.id,
+			       		target_type: target.label
+			       	}, 
+			       	r.get('rel')
+			       );
 			    });
 		        		         
 		        session.close();
@@ -33,12 +43,11 @@
 		        const Graph = ForceGraph3D()(viewer)
 		        				.graphData(gData)
 		        				.nodeId('id')
-                      			.nodeLabel(node => `${node.label}: ${node.caption}`)
+                      			.nodeLabel('id')
                       			.nodeAutoColorBy('label')	
-                      			.linkAutoColorBy( 'type' )
-                      			.linkWidth(4)
-                      			.linkDirectionalParticles(4)
-                      			.linkDirectionalParticleWidth(4)
+                      			.linkAutoColorBy( link => link.source_type )
+                      			.linkWidth(1)
+                      			.forceEngine('ngraph')
                       			.onNodeHover(node => viewer.style.cursor = node ? 'pointer' : null);
 		      })
 		      .catch(function (error) {
@@ -47,8 +56,8 @@
 		      	
 		</h:outputScript>
 	</ui:define>
+	<ui:define name="title">#{projectCtrl.project.name}</ui:define>
    	<ui:define name="content">	
-   		<h1>#{projectCtrl.project.name}</h1>
 		<h:panelGroup id="viewer" layout="block"></h:panelGroup>	
 	</ui:define>
 </ui:composition>   
